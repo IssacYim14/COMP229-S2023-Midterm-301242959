@@ -30,7 +30,7 @@ router.get('/add', (req, res, next) => {
      *****************/
     res.render("books/details",{
       title:'Book Details',
-      books: ''
+      books: {},
     });
 });
 
@@ -49,6 +49,14 @@ router.get('/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+    book.findById(req.params.id, function(err, book){
+      if(err){
+          res.redirect("/");
+      }
+      else{
+        res.render("books/details", {title:'Edit', books: book});
+      }
+    }) 
 });
 
 // POST - process the information passed from the details form and update the document
@@ -66,6 +74,13 @@ router.get('/delete/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+    const bookId = req.params.id;
+    book.findByIdAndRemove(bookId, (err, deletedBook) => {
+    if (err) {
+      return res.redirect('/');
+    }
+    res.redirect('/books');
+  });
 });
 
 
