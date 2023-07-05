@@ -40,7 +40,16 @@ router.post('/add', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+    // Extract values from request body
+    const { title, price, author, genre } = req.body;
 
+    book.create({ Title: title, Price: price, Author: author, Genre: genre }, (err) => {
+      if (err) {
+        console.error(err);
+        return res.redirect('/');
+      }
+      res.redirect('/books');
+    });
 });
 
 // GET the Book Details page in order to edit an existing Book
