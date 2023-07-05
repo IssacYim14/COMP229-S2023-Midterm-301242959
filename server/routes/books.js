@@ -60,7 +60,7 @@ router.get('/:id', (req, res, next) => {
      *****************/
     book.findById(req.params.id, function(err, book){
       if(err){
-          res.redirect("/");
+        res.redirect("/");
       }
       else{
         res.render("books/details", {title:'Edit', books: book});
@@ -86,8 +86,7 @@ router.post('/:id', (req, res, next) => {
 
     book.findByIdAndUpdate(id, updatedBook, { new: true }, (err) => {
       if (err) {
-        console.error(err);
-        return res.redirect('/books');
+        res.redirect('/books');
       }
       res.redirect('/books');
     });
@@ -102,7 +101,7 @@ router.get('/delete/:id', (req, res, next) => {
     const bookId = req.params.id;
     book.findByIdAndRemove(bookId, (err, deletedBook) => {
     if (err) {
-      return res.redirect('/');
+      res.redirect('/');
     }
     res.redirect('/books');
   });
