@@ -1,3 +1,10 @@
+/*
+File name: books.js
+Author's name: Chun Wai Yim
+StudentID: 301242959
+Web App name: Favourite Book List
+*/
+
 // modules required for routing
 let express = require('express');
 let router = express.Router();
@@ -10,8 +17,9 @@ let book = require('../models/books');
 router.get('/', (req, res, next) => {
   // find all books in the books collection
   book.find( (err, books) => {
+    // If error, redirect the user to the '/' route
     if (err) {
-      return console.error(err);
+      res.redirect('/');
     }
     else {
       res.render('books/index', {
@@ -20,14 +28,10 @@ router.get('/', (req, res, next) => {
       });
     }
   });
-
 });
 
 //  GET the Book Details page in order to add a new Book
 router.get('/add', (req, res, next) => {
-    /*****************
-     * ADD CODE HERE *
-     *****************/
     res.render("books/details",{
       title:'Book Details',
       books: {},
@@ -36,17 +40,13 @@ router.get('/add', (req, res, next) => {
 
 // POST process the Book Details page and create a new Book - CREATE
 router.post('/add', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
     // Extract values from request body
     const { title, price, author, genre } = req.body;
 
     book.create({ Title: title, Price: price, Author: author, Genre: genre }, (err) => {
+      // If error, redirect the user to the '/' route
       if (err) {
-        console.error(err);
-        return res.redirect('/');
+        res.redirect('/');
       }
       res.redirect('/books');
     });
@@ -54,11 +54,8 @@ router.post('/add', (req, res, next) => {
 
 // GET the Book Details page in order to edit an existing Book
 router.get('/:id', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
     book.findById(req.params.id, function(err, book){
+      // If error, redirect the user to the '/' route
       if(err){
         res.redirect("/");
       }
@@ -70,12 +67,9 @@ router.get('/:id', (req, res, next) => {
 
 // POST - process the information passed from the details form and update the document
 router.post('/:id', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
     const id = req.params.id;
 
+    // Create an object with the updated book information from the request body
     const updatedBook = {
       _id: id,
       Title: req.body.title,
@@ -85,6 +79,7 @@ router.post('/:id', (req, res, next) => {
     };
 
     book.findByIdAndUpdate(id, updatedBook, { new: true }, (err) => {
+      // If error, redirect the user to the '/books' route
       if (err) {
         res.redirect('/books');
       }
@@ -94,12 +89,9 @@ router.post('/:id', (req, res, next) => {
 
 // GET - process the delete by user id
 router.get('/delete/:id', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
     const bookId = req.params.id;
     book.findByIdAndRemove(bookId, (err, deletedBook) => {
+    // If error, redirect the user to the '/' route
     if (err) {
       res.redirect('/');
     }

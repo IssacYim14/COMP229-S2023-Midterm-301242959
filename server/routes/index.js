@@ -1,3 +1,10 @@
+/*
+File name: index.js
+Author's name: Chun Wai Yim
+StudentID: 301242959
+Web App name: Favourite Book List
+*/
+
 // modules required for routing
 let express = require('express');
 let router = express.Router();

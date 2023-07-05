@@ -1,3 +1,10 @@
+/*
+File name: server.js
+Author's name: Chun Wai Yim
+StudentID: 301242959
+Web App name: Favourite Book List
+*/
+
 let app = require('./server/config/app');
 let debug = require('debug')('comp308-w2019-midterm:server');
 let http = require('http');

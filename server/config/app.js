@@ -1,3 +1,10 @@
+/*
+File name: app.js
+Author's name: Chun Wai Yim
+StudentID: 301242959
+Web App name: Favourite Book List
+*/
+
 // moddules for node and express
 let createError = require('http-errors');
 let express = require('express');

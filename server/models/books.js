@@ -1,3 +1,10 @@
+/*
+File name: books.js
+Author's name: Chun Wai Yim
+StudentID: 301242959
+Web App name: Favourite Book List
+*/
+
 let mongoose = require('mongoose');
 
 // create a model class
