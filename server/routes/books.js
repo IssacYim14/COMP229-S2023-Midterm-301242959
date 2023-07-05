@@ -74,7 +74,23 @@ router.post('/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+    const id = req.params.id;
 
+    const updatedBook = {
+      _id: id,
+      Title: req.body.title,
+      Price: req.body.price,
+      Author: req.body.author,
+      Genre: req.body.genre
+    };
+
+    book.findByIdAndUpdate(id, updatedBook, { new: true }, (err) => {
+      if (err) {
+        console.error(err);
+        return res.redirect('/books');
+      }
+      res.redirect('/books');
+    });
 });
 
 // GET - process the delete by user id
